@@ -1,3 +1,6 @@
+#ifndef BOOKMARKMANAGER_H
+#define BOOKMARKMANAGER_H
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -9,7 +12,7 @@ class BookmarkManager
 public:
 	BookmarkManager();
 
-	void addBookmark(const std::string& category, const std::string& folderName, const std::string& url);
+	bool addBookmark(const std::string& category, const std::string& folderName, const std::string& url);
 
 	void changeList(const std::string& input);
 
@@ -18,6 +21,8 @@ public:
 	void draw(sf::RenderWindow& window);
 
 	const std::vector<Bookmark*>& getBookmarks() const;
+
+	bool isEmpty() const;
 
 	void refreshBookmarks();
 
@@ -28,3 +33,5 @@ private:
 	std::vector<bool> inCategories;
 	int currentCategory;
 };
+
+#endif

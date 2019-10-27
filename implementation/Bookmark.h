@@ -1,3 +1,6 @@
+#ifndef BOOKMARK_H
+#define BOOKMARK_H
+
 #include <SFML/Graphics.hpp>
 
 #include <string>
@@ -23,3 +26,5 @@ private:
 	sf::Font titleFont;
 	sf::Text titleText;
 };
+
+#endif

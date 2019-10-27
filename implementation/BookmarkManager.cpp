@@ -37,7 +37,7 @@ BookmarkManager::BookmarkManager()
 	currentCategory = 0;
 }
 
-void BookmarkManager::addBookmark(const std::string& category, const std::string& folderName, const std::string& url)
+bool BookmarkManager::addBookmark(const std::string& category, const std::string& folderName, const std::string& url)
 {
 	auto iter = std::find(categories.begin(), categories.end(), category);
 	if (iter != categories.end())
@@ -53,10 +53,12 @@ void BookmarkManager::addBookmark(const std::string& category, const std::string
 			yPos = (yPos + 1) * 275;
 		}
 		bookmarks[idx].push_back(new Bookmark(category, folderName, url, yPos));
+		return true;
 	}
 	else
 	{
 		std::cout << "could not find the specified category. Aborting.\n";
+		return false;
 	}
 }
 
@@ -77,19 +79,29 @@ void BookmarkManager::displayCategories() const
 	{
 		std::cout << elem + "\n";
 	}
+
 }
 
 void BookmarkManager::draw(sf::RenderWindow& window)
 {
-	for (auto elem : bookmarks[currentCategory])
+	if (bookmarks.size() != 0)
 	{
-		elem->draw(window);
+		for (auto elem : bookmarks[currentCategory])
+		{
+			elem->draw(window);
+		}
 	}
 }
 
 const std::vector<Bookmark*>& BookmarkManager::getBookmarks() const
 {
 	return bookmarks[currentCategory];
+}
+
+bool BookmarkManager::isEmpty() const
+{
+	return (bookmarks.size() == 0 ? true : false);
+
 }
 
 void BookmarkManager::refreshBookmarks()
